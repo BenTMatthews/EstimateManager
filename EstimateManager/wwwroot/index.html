@@ -1,0 +1,46 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+
+<head>
+    <title>display/box/float/clear test</title>
+    <link href="css/site.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div id="sample">
+        <div class="grid-container">
+            <div class="grid-item item1">1</div>
+            <div class="grid-item">2</div>
+            <div class="grid-item">3</div>
+            <div class="grid-item">4</div>
+            <div class="grid-item">5</div>
+            <div class="grid-item">6</div>
+            <div class="grid-item">7</div>
+            <div class="grid-item">8</div>
+            <div class="grid-item">9</div>
+        </div>
+    </div>
+    <p style="color: black; font-size: 1em; line-height: 1.3em; clear: both">
+        This is a nonsensical document, but syntactically valid HTML 4.0. All 100% conformant CSS1 agents should be able to
+        render the document elements above this paragraph <b>indistinguishably</b> (to the pixel) from this reference
+        rendering, (except font rasterization and form widgets). All discrepancies should be traceable to CSS1
+        implementation shortcomings. Once you have finished evaluating this test, you can return to the <A HREF="sec5526c.htm" style="text-decoration: none">parent page</A>.
+    </p>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    <script>
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        pdf.html(document.body, {
+            callback: function (pdf) {
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:500px');
+                document.body.appendChild(iframe);
+                iframe.src = pdf.output('datauristring');
+            }
+        });
+    </script>
+</body>
+
+</html>

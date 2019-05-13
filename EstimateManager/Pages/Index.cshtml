@@ -1,0 +1,106 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div id="estimate">
+    <div id="estimate-name"><input v-model="name" placeholder="[Estimate Name]" /></div>
+
+    <div id="estimate-info">
+        <div class="left">
+            <div class="root-info-label">PROJECT TITLE</div>
+            <div class="root-info-label">PROJECT OWNER</div>
+        </div>
+        <div class="right">
+            <div><input class="root-info-input" v-model="projectTitle" placeholder="[Project Name]" /></div>
+            <div><input class="root-info-input" v-model="projectOwner" placeholder="[Customer Name]" /></div>
+        </div>
+        <div class="left">
+            <div class="root-info-label">COMPANY NAME</div>
+            <div class="root-info-label">DATE</div>
+        </div>
+        <div class="right">
+            <div><input class="root-info-input" v-model="companyName" placeholder="[You or your company]" /></div>
+            <div><input id="estimate-date" class="root-info-input" v-model="date" type="date" /></div>
+        </div>
+    </div>
+
+    <div id="estimate-grid-headers">
+        <div id="task-header">TASKS</div>
+        <div id="calc-header">COST/HOURS</div>
+        <div class="task second-row second-row-task">TASK</div>
+        <div class="description second-row second-row-task">DESCRIPTION</div>
+        <div class="optimistic second-row second-row-task">OPTIMISTIC</div>
+        <div class="likely second-row second-row-task">LIKELY</div>
+        <div class="pessimistic second-row second-row-task">PESSIMISTIC</div>
+        <div class="calculated second-row second-row-task">CALCULATED</div>
+        <div class="estimated second-row second-row-task">ESTIMATED</div>
+        <div class="cost secondRow second-row-task second-row-padding">COST</div>
+    </div>
+
+
+    <div class="section" v-bind:section-id="section.id" v-for="(section, index) in sections">
+        <div class="section-title section-header"><input v-model="section.name" placeholder="[Section Title]" /></div>
+        <div class="section-hours section-header">{{ SectionHours(section) }}</div>
+        <div class="section-cost section-header">{{ FormatCurrency(SectionHours(section) * section.sectionRate) }}</div>
+        <div class="remove-section section-header" v-on:click="RemoveSection(section.id)">-</div>
+        <template v-for="(lineItem, index) in section.lineItems">
+            <div class="line-task"><input v-model="lineItem.task" placeholder="[Task Name]" /></div>
+            <div class="line-description"><textarea v-model="lineItem.description" allowmulti="true" placeholder="[Description]"></textarea></div>
+            <div class="line-optimistic"><input v-model="lineItem.optimistic" placeholder="0" type="number" /></div>
+            <div class="line-likely"><input v-model="lineItem.likely" placeholder="0" type="number" /></div>
+            <div class="line-pessimistic"><input v-model="lineItem.pessimistic" placeholder="0" type="number" /></div>
+            <div class="line-calculated">{{ CalcPert(lineItem, section.sectionWeightOptimistic, section.sectionWeightLikely, section.sectionWeightPessimistic) }}</div>
+            <div class="line-estimated"></div>
+            <div class="line-cost">{{ FormatCurrency(CalcPert(lineItem, section.sectionWeightOptimistic, section.sectionWeightLikely, section.sectionWeightPessimistic) * section.sectionRate) }}</div>
+            <div class="remove-line" v-on:click="RemoveLine(section.id, lineItem.id)" >-</div>
+        </template>
+        <div v-on:click="AddLine(section.id)" class="add-line">+</div>
+    </div>
+
+    <div id="total-row">
+        <div class="total-text">TOTAL</div>
+        <div class="total-val">{{ EstimateTotal }}</div>
+    </div>
+</div>
+
+<div id="manager-drawer">
+    <button id="downloadpdf" onclick="SaveAndDownload();">Download as PDF</button>
+    <div id="drawer-header">Section Settings</div>
+    <div class="drawer-section" v-bind:section-id="section.id" v-for="(section, index) in sections">        
+        <div class="section-weights">
+            <div class="left">
+                <div class="section-rate">Rate:</div>
+                <div class="section-weight">Opt Weight:</div>
+                <div class="section-weight">Likely Weight:</div>
+                <div class="section-weight">Pess Weight:</div>
+            </div>
+            <div class="right">
+                <div class="section-weight-input">
+                    <span class="input-currency">
+                        <input v-model="section.sectionRate" placeholder="0" type="number" step="1" min="1" max="999"/>
+                    </span>
+                </div>
+                <div class="section-weight-input">
+                    <input v-model="section.sectionWeightOptimistic" placeholder="0" type="number" step="0.5" min="1" max="99"/>
+                </div>
+                <div class="section-weight-input">
+                    <input v-model="section.sectionWeightLikely" placeholder="0" type="number" step="0.5" min="1" max="99"/>
+                </div>
+                <div class="section-weight-input">
+                    <input v-model="section.sectionWeightPessimistic" placeholder="0" type="number" step="0.5" min="1" max="99"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="add-section" onclick="AddSection();">Add section</button>
+</div>
+
+<div id="saving">Saving...</div>
+
+@section Scripts
+{
+    <script>HomeLoad();</script>
+}
