@@ -4,6 +4,9 @@ $darkerGrey: #434343;
 $burntOrange: #b85b22;
 $lightGrey: #f3f3f3;
 
+$finalColumnWidth: 20px;
+$gridRowTemplate: 15% 26% 8% 8% 8% 8% 11% auto $finalColumnWidth;
+
 
 body {
     width: 100%;
@@ -115,9 +118,9 @@ header {
 
     #estimate-grid-headers {
         display: grid;
-        grid-template-columns: 15% 26% 8% 8% 8% 8% 11% auto;
+        grid-template-columns: $gridRowTemplate;
         grid-template-rows: 30px 30px;
-        grid-template-areas: "tasks tasks tasks tasks tasks tasks costs costs" "task description optimistic likely pessimistic calculated estimated cost";
+        grid-template-areas: "tasks tasks tasks tasks tasks tasks costs costs costs" "task description optimistic likely pessimistic calculated estimated cost cost";
         width: 100%;
         text-align: center;
         font-weight: bold;
@@ -187,7 +190,7 @@ header {
             color: $burntOrange;
         }
 
-        .second-row-padding{
+        .second-row-padding {
             padding-right: 0px;
         }
     }
@@ -195,11 +198,12 @@ header {
     .section {
         display: grid;
         grid-gap: 0px;
-        grid-template-columns: 15% 26% 8% 8% 8% 8% 11% auto 20px;
+        grid-template-columns: $gridRowTemplate;
         grid-auto-rows: min-content max-content;
         width: 100%;
         text-align: center;
         margin-bottom: 20px;
+        position: relative;
 
         > div {
             display: flex;
@@ -236,6 +240,7 @@ header {
         .section-cost {
             color: $burntOrange;
             grid-column: span 1;
+            padding-left: $finalColumnWidth;
         }
 
         .remove-section {
@@ -291,6 +296,7 @@ header {
 
         .line-cost {
             color: $burntOrange;
+            padding-left: $finalColumnWidth;
         }
 
         .add-line {
@@ -320,11 +326,18 @@ header {
         height: 35px;
     }
 
+    .section-manager {
+        grid-row: span 10;
+        position: absolute;
+        top: 20px;
+        left: 0px;
+    }
+
     #total-row {
         margin-top: 45px;
         display: grid;
         grid-gap: 0px;
-        grid-template-columns: 15% 26% 8% 8% 8% 8% 11% auto 20px;
+        grid-template-columns: $gridRowTemplate;
         grid-auto-rows: min-content max-content;
         width: 100%;
         text-align: center;

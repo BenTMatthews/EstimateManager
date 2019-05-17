@@ -71,9 +71,9 @@ header nav {
         height: 20px; }
   #estimate #estimate-grid-headers {
     display: grid;
-    grid-template-columns: 15% 26% 8% 8% 8% 8% 11% auto;
+    grid-template-columns: 15% 26% 8% 8% 8% 8% 11% auto 20px;
     grid-template-rows: 30px 30px;
-    grid-template-areas: "tasks tasks tasks tasks tasks tasks costs costs" "task description optimistic likely pessimistic calculated estimated cost";
+    grid-template-areas: "tasks tasks tasks tasks tasks tasks costs costs costs" "task description optimistic likely pessimistic calculated estimated cost cost";
     width: 100%;
     text-align: center;
     font-weight: bold;
@@ -123,7 +123,8 @@ header nav {
     grid-auto-rows: min-content max-content;
     width: 100%;
     text-align: center;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    position: relative; }
     #estimate .section > div {
       display: flex;
       justify-content: center;
@@ -148,7 +149,8 @@ header nav {
       grid-column: span 1; }
     #estimate .section .section-cost {
       color: #b85b22;
-      grid-column: span 1; }
+      grid-column: span 1;
+      padding-left: 20px; }
     #estimate .section .remove-section {
       grid-column: span 1;
       cursor: pointer;
@@ -176,7 +178,8 @@ header nav {
       font-weight: bold;
       color: #0b5394; }
     #estimate .section .line-cost {
-      color: #b85b22; }
+      color: #b85b22;
+      padding-left: 20px; }
     #estimate .section .add-line {
       grid-row: span 10;
       color: green;
@@ -197,6 +200,11 @@ header nav {
     cursor: pointer;
     width: 25px;
     height: 35px; }
+  #estimate .section-manager {
+    grid-row: span 10;
+    position: absolute;
+    top: 20px;
+    left: 0px; }
   #estimate #total-row {
     margin-top: 45px;
     display: grid;

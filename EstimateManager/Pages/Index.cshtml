@@ -37,7 +37,7 @@
         <div class="pessimistic second-row second-row-task">PESSIMISTIC</div>
         <div class="calculated second-row second-row-task">CALCULATED</div>
         <div class="estimated second-row second-row-task">ESTIMATED</div>
-        <div class="cost secondRow second-row-task second-row-padding">COST</div>
+        <div class="cost second-row second-row-task second-row-padding">COST</div>
     </div>
 
 
@@ -55,9 +55,20 @@
             <div class="line-calculated">{{ CalcPert(lineItem, section.sectionWeightOptimistic, section.sectionWeightLikely, section.sectionWeightPessimistic) }}</div>
             <div class="line-estimated"></div>
             <div class="line-cost">{{ FormatCurrency(CalcPert(lineItem, section.sectionWeightOptimistic, section.sectionWeightLikely, section.sectionWeightPessimistic) * section.sectionRate) }}</div>
-            <div class="remove-line" v-on:click="RemoveLine(section.id, lineItem.id)" >-</div>
+            <div class="remove-line" v-on:click="RemoveLine(section.id, lineItem.id)">-</div>
         </template>
         <div v-on:click="AddLine(section.id)" class="add-line">+</div>
+        <div class="section-manager">
+            Rate:
+            <span class="input-currency">
+                <input v-model="section.sectionRate" placeholder="0" type="number" step="1" min="1" max="999" />
+            </span>
+
+            weights:
+            <input v-model="section.sectionWeightOptimistic" placeholder="0" type="number" step="0.5" min="1" max="99" />
+            <input v-model="section.sectionWeightLikely" placeholder="0" type="number" step="0.5" min="1" max="99" />
+            <input v-model="section.sectionWeightPessimistic" placeholder="0" type="number" step="0.5" min="1" max="99" />
+        </div>
     </div>
 
     <div id="total-row">
@@ -69,7 +80,7 @@
 <div id="manager-drawer">
     <button id="downloadpdf" onclick="SaveAndDownload();">Download as PDF</button>
     <div id="drawer-header">Section Settings</div>
-    <div class="drawer-section" v-bind:section-id="section.id" v-for="(section, index) in sections">        
+    <div class="drawer-section" v-bind:section-id="section.id" v-for="(section, index) in sections">
         <div class="section-weights">
             <div class="left">
                 <div class="section-rate">Rate:</div>
@@ -80,17 +91,17 @@
             <div class="right">
                 <div class="section-weight-input">
                     <span class="input-currency">
-                        <input v-model="section.sectionRate" placeholder="0" type="number" step="1" min="1" max="999"/>
+                        <input v-model="section.sectionRate" placeholder="0" type="number" step="1" min="1" max="999" />
                     </span>
                 </div>
                 <div class="section-weight-input">
-                    <input v-model="section.sectionWeightOptimistic" placeholder="0" type="number" step="0.5" min="1" max="99"/>
+                    <input v-model="section.sectionWeightOptimistic" placeholder="0" type="number" step="0.5" min="1" max="99" />
                 </div>
                 <div class="section-weight-input">
-                    <input v-model="section.sectionWeightLikely" placeholder="0" type="number" step="0.5" min="1" max="99"/>
+                    <input v-model="section.sectionWeightLikely" placeholder="0" type="number" step="0.5" min="1" max="99" />
                 </div>
                 <div class="section-weight-input">
-                    <input v-model="section.sectionWeightPessimistic" placeholder="0" type="number" step="0.5" min="1" max="99"/>
+                    <input v-model="section.sectionWeightPessimistic" placeholder="0" type="number" step="0.5" min="1" max="99" />
                 </div>
             </div>
         </div>
