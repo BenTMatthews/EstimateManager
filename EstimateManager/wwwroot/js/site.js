@@ -104,6 +104,10 @@ function HomeLoad() {
             },
             FormatCurrency: function (val) {
                 return "$" + val.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            },
+            ToggleMgrDrawer: function (sectionId) {
+                var sectionMgrCnt = document.querySelector("[section-id='" + sectionId + "'] > .section-manager > .section-manager-content");
+                sectionMgrCnt.style.top = "0px";
             }
         },
         mounted: function () {
@@ -120,15 +124,7 @@ function HomeLoad() {
         }
     });
 
-    managerVue = new Vue({
-        el: '#manager-drawer',
-        data: estimateSheet,
-        methods: {
-        }
-    });
-
     SaveToLocal();
-    SetDrawerPositions();
 }
 
 function AddSection() {
@@ -212,20 +208,6 @@ function GetToday() {
 
     today = yyyy + '-' + mm + '-' + dd;
     return today;
-}
-
-function SetDrawerPositions() {
-    var sections = document.querySelectorAll('#estimate .section');
-    var increment = 6; //Figure out why we need this, it's so ugly.
-    var runningHeight = 305; //base offset, figure out how to calculate this later
-
-    for (var k = 0; k < sections.length; k++) {
-        document.querySelector('.drawer-section[section-id="' + sections[k].getAttribute("section-id") + '"]').style.top = runningHeight + (k * increment) + "px";
-        runningHeight += sections[k].scrollHeight;
-        console.log("section height: " + sections[k].scrollHeight + " :: runningHeight: " + runningHeight);
-    }
-
-    document.querySelector('#manager-drawer').style.height = document.querySelector('#estimate').scrollHeight;
 }
 
 function SaveAndDownload() {
@@ -357,3 +339,4 @@ function fadeIn(id, val) {
         return;
     }
 }
+

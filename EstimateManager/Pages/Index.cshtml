@@ -59,15 +59,22 @@
         </template>
         <div v-on:click="AddLine(section.id)" class="add-line">+</div>
         <div class="section-manager">
-            Rate:
-            <span class="input-currency">
-                <input v-model="section.sectionRate" placeholder="0" type="number" step="1" min="1" max="999" />
-            </span>
-
-            weights:
-            <input v-model="section.sectionWeightOptimistic" placeholder="0" type="number" step="0.5" min="1" max="99" />
-            <input v-model="section.sectionWeightLikely" placeholder="0" type="number" step="0.5" min="1" max="99" />
-            <input v-model="section.sectionWeightPessimistic" placeholder="0" type="number" step="0.5" min="1" max="99" />
+            <div class="section-manager-content">
+                <div class="pert-weight">Pert Weights:</div>
+                <div><input v-model="section.sectionWeightOptimistic" placeholder="0" type="number" step="0.5" min="1" max="99" /></div>
+                <div>
+                    <input v-model="section.sectionWeightLikely" placeholder="0" type="number" step="0.5" min="1" max="99" />
+                </div>
+                <div>
+                    <input v-model="section.sectionWeightPessimistic" placeholder="0" type="number" step="0.5" min="1" max="99" />
+                </div>
+                <div class="currency-rate">
+                    <span class="input-currency">
+                        <input v-model="section.sectionRate" placeholder="0" type="number" step="1" min="1" max="999" /> /hr
+                    </span>
+                </div>
+                <div class="mgr-arrow" v-on:click="ToggleMgrDrawer(section.id);">&#9660;</div>
+            </div>
         </div>
     </div>
 

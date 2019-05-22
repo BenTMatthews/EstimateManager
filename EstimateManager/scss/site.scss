@@ -19,40 +19,43 @@ input {
     border: none;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
-}
+    width: 40%;
+    text-align: center;
+    color: $darkBlue;
+    }
 
-textarea {
-    border: none;
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    height: 18px;
-}
+    textarea {
+        border: none;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        height: 18px;
+    }
 
-header {
-    //display: none;
-    nav {
-        width: 100%;
-        //height: 60px;
-        top: 0;
+    header {
+        //display: none;
+        nav {
+            width: 100%;
+            //height: 60px;
+            top: 0;
 
-        ul {
-            //padding: 20px;
-            margin: 0 auto;
-            list-style: none;
-            text-align: right;
+            ul {
+                //padding: 20px;
+                margin: 0 auto;
+                list-style: none;
+                text-align: right;
 
-            li {
-                display: inline-block;
-                //margin: 0 10px;
+                li {
+                    display: inline-block;
+                    //margin: 0 10px;
+                }
             }
         }
     }
-}
 
-.container {
-    margin: auto;
-    display: none;
-}
+    .container {
+        margin: auto;
+        display: none;
+    }
 
 #estimate {
     margin: 0 2% 25px 2%;
@@ -69,6 +72,7 @@ header {
             font-weight: bold;
             color: $darkBlue;
             width: 100%;
+            text-align: left;
         }
     }
 
@@ -109,6 +113,7 @@ header {
             font-weight: normal;
             font-size: 15px;
             width: 300px;
+            text-align: left;
 
             &#estimate-date {
                 height: 20px;
@@ -254,6 +259,7 @@ header {
             > input {
                 width: 95%;
                 color: $darkBlue;
+                text-align: left;
             }
         }
 
@@ -300,7 +306,7 @@ header {
         }
 
         .add-line {
-            grid-row: span 10;
+            grid-column: span 1;
             color: green;
             font-size: 30px;
             cursor: pointer;
@@ -309,7 +315,7 @@ header {
         }
 
         .remove-line {
-            grid-row: span 1;
+            grid-column: span 1;
             color: red;
             font-size: 30px;
             cursor: pointer;
@@ -317,20 +323,62 @@ header {
         }
     }
 
-    .add-section {
-        grid-row: span 10;
-        color: green;
-        font-size: 40px;
-        cursor: pointer;
-        width: 25px;
-        height: 35px;
-    }
-
     .section-manager {
-        grid-row: span 10;
+        grid-column: span 10;
+        width: 100%;
         position: absolute;
-        top: 20px;
+        top: 65px;
         left: 0px;
+        height: 40px;
+        overflow-y: hidden;
+
+        .section-manager-content {
+            width: 100%;
+            position: absolute;
+            top: -30px;
+            left: 0px;
+            display: grid;
+            grid-gap: 0px;
+            grid-template-columns: $gridRowTemplate;
+            grid-auto-rows: min-content max-content;
+            background-color: #d9dada;
+            padding-top: 5px;
+            transition: top 1s;
+
+            .pert-weight {
+                grid-column: 2;
+                justify-self: end;
+            }
+
+            .currency-rate {
+                grid-column: 7;
+
+                .input-currency {
+                    position: relative;
+
+                    &:before {
+                        position: absolute;
+                        top: 0;
+                        content: "$";
+                        font-size: 14px;
+                        padding-top: 2px;
+                    }
+
+                    > input {
+                        padding-left: 8px;
+                        width: 40px;
+                    }
+                }
+            }
+
+            .mgr-arrow {
+                grid-column: span 10;
+                font-size: 11px;
+                position: relative;
+                top: 3px;
+                cursor: default;
+            }
+        }
     }
 
     #total-row {
@@ -359,114 +407,97 @@ header {
     }
 }
 
-#manager-drawer {
-    width: 250px;
-    border-left: 3px outset $darkGrey;
-    border-top: 3px outset $darkGrey;
-    border-bottom: 3px outset $darkGrey;
-    margin-right: 2%;
-    background-color: $lightGrey;
-    text-align: left;
-    padding-top: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: 3px;
-    color: $darkBlue;
-    position: relative;
-    display: none;
+    #manager-drawer {
+        width: 250px;
+        border-left: 3px outset $darkGrey;
+        border-top: 3px outset $darkGrey;
+        border-bottom: 3px outset $darkGrey;
+        margin-right: 2%;
+        background-color: $lightGrey;
+        text-align: left;
+        padding-top: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: 3px;
+        color: $darkBlue;
+        position: relative;
+        display: none;
 
-    button#downloadpdf {
-        font-family: 'Roboto', sans-serif;
-        background: $burntOrange;
-        color: white;
-        height: 30px;
-    }
+        button#downloadpdf {
+            font-family: 'Roboto', sans-serif;
+            background: $burntOrange;
+            color: white;
+            height: 30px;
+        }
 
-    #drawer-header {
-        margin-top: 17px;
-        font-size: 20px;
-        border-bottom: 3px solid $darkBlue;
-        width: 100%;
-    }
+        #drawer-header {
+            margin-top: 17px;
+            font-size: 20px;
+            border-bottom: 3px solid $darkBlue;
+            width: 100%;
+        }
 
-    .drawer-section {
-        position: absolute;
-        border-top: 1px solid $darkBlue;
-        width: 205px; //so ugly we have to do this...
-        .section-weights {
-            display: flex;
-            justify-content: center;
+        .drawer-section {
+            position: absolute;
+            border-top: 1px solid $darkBlue;
+            width: 205px; //so ugly we have to do this...
+            .section-weights {
+                display: flex;
+                justify-content: center;
 
-            .left {
-                text-align: right;
-                padding-right: 5px;
-                padding-top: 2px;
+                .left {
+                    text-align: right;
+                    padding-right: 5px;
+                    padding-top: 2px;
 
-                > div {
-                    margin-top: 4px;
-                    height: 25px;
-                    padding-right: 10px;
-                }
-            }
-
-            .right {
-                text-align: left;
-                flex-grow: 1;
-
-                .section-weight-input {
-                    margin-top: 6px;
-
-                    input {
-                        width: 42px;
-                        height: 20px;
-                        color: $darkBlue;
-                        padding-left: 5px;
+                    > div {
+                        margin-top: 4px;
+                        height: 25px;
+                        padding-right: 10px;
                     }
+                }
 
-                    .input-currency {
-                        position: relative;
+                .right {
+                    text-align: left;
+                    flex-grow: 1;
 
-                        &:before {
-                            position: absolute;
-                            top: 0;
-                            content: "$";
-                            font-size: 14px;
-                            padding-top: 2px;
-                        }
+                    .section-weight-input {
+                        margin-top: 6px;
 
-                        > input {
-                            padding-left: 8px;
-                            width: 40px;
+                        input {
+                            width: 42px;
+                            height: 20px;
+                            color: $darkBlue;
+                            padding-left: 5px;
                         }
                     }
                 }
             }
         }
+
+        #add-section {
+            position: absolute;
+            bottom: 2px;
+            font-family: 'Roboto', sans-serif;
+            background: $darkBlue;
+            color: white;
+            height: 24px;
+        }
     }
 
-    #add-section {
+    #saving {
         position: absolute;
-        bottom: 2px;
-        font-family: 'Roboto', sans-serif;
-        background: $darkBlue;
-        color: white;
-        height: 24px;
+        top: 2px;
+        right: 2px;
+        background-color: beige;
+        color: black;
+        height: 15px;
+        width: 60px;
+        text-align: center;
+        opacity: 0;
+        font-size: 12px;
     }
-}
 
-#saving {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background-color: beige;
-    color: black;
-    height: 15px;
-    width: 60px;
-    text-align: center;
-    opacity: 0;
-    font-size: 12px;
-}
-
-footer {
-    margin-top: 50px;
-}
+    footer {
+        margin-top: 50px;
+    }

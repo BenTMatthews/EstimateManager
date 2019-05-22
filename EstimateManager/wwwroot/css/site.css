@@ -6,7 +6,10 @@
 input {
   border: none;
   font-size: 14px;
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'Roboto', sans-serif;
+  width: 40%;
+  text-align: center;
+  color: #0b5394; }
 
 textarea {
   border: none;
@@ -40,7 +43,8 @@ header nav {
       font-size: 40px;
       font-weight: bold;
       color: #0b5394;
-      width: 100%; }
+      width: 100%;
+      text-align: left; }
   #estimate #estimate-info {
     width: 100%;
     margin-bottom: 20px;
@@ -66,7 +70,8 @@ header nav {
       color: black;
       font-weight: normal;
       font-size: 15px;
-      width: 300px; }
+      width: 300px;
+      text-align: left; }
       #estimate #estimate-info input.root-info-input#estimate-date {
         height: 20px; }
   #estimate #estimate-grid-headers {
@@ -158,7 +163,8 @@ header nav {
       font-size: 32px; }
     #estimate .section .line-task > input {
       width: 95%;
-      color: #0b5394; }
+      color: #0b5394;
+      text-align: left; }
     #estimate .section .line-description > textarea {
       width: 100%;
       color: #0b5394; }
@@ -181,30 +187,60 @@ header nav {
       color: #b85b22;
       padding-left: 20px; }
     #estimate .section .add-line {
-      grid-row: span 10;
+      grid-column: span 1;
       color: green;
       font-size: 30px;
       cursor: pointer;
       width: 20px;
       height: 10px; }
     #estimate .section .remove-line {
-      grid-row: span 1;
+      grid-column: span 1;
       color: red;
       font-size: 30px;
       cursor: pointer;
       margin-top: -2px; }
-  #estimate .add-section {
-    grid-row: span 10;
-    color: green;
-    font-size: 40px;
-    cursor: pointer;
-    width: 25px;
-    height: 35px; }
   #estimate .section-manager {
-    grid-row: span 10;
+    grid-column: span 10;
+    width: 100%;
     position: absolute;
-    top: 20px;
-    left: 0px; }
+    top: 65px;
+    left: 0px;
+    height: 40px;
+    overflow-y: hidden; }
+    #estimate .section-manager .section-manager-content {
+      width: 100%;
+      position: absolute;
+      top: -30px;
+      left: 0px;
+      display: grid;
+      grid-gap: 0px;
+      grid-template-columns: 15% 26% 8% 8% 8% 8% 11% auto 20px;
+      grid-auto-rows: min-content max-content;
+      background-color: #d9dada;
+      padding-top: 5px;
+      transition: top 1s; }
+      #estimate .section-manager .section-manager-content .pert-weight {
+        grid-column: 2;
+        justify-self: end; }
+      #estimate .section-manager .section-manager-content .currency-rate {
+        grid-column: 7; }
+        #estimate .section-manager .section-manager-content .currency-rate .input-currency {
+          position: relative; }
+          #estimate .section-manager .section-manager-content .currency-rate .input-currency:before {
+            position: absolute;
+            top: 0;
+            content: "$";
+            font-size: 14px;
+            padding-top: 2px; }
+          #estimate .section-manager .section-manager-content .currency-rate .input-currency > input {
+            padding-left: 8px;
+            width: 40px; }
+      #estimate .section-manager .section-manager-content .mgr-arrow {
+        grid-column: span 10;
+        font-size: 11px;
+        position: relative;
+        top: 3px;
+        cursor: default; }
   #estimate #total-row {
     margin-top: 45px;
     display: grid;
@@ -273,17 +309,6 @@ header nav {
             height: 20px;
             color: #0b5394;
             padding-left: 5px; }
-          #manager-drawer .drawer-section .section-weights .right .section-weight-input .input-currency {
-            position: relative; }
-            #manager-drawer .drawer-section .section-weights .right .section-weight-input .input-currency:before {
-              position: absolute;
-              top: 0;
-              content: "$";
-              font-size: 14px;
-              padding-top: 2px; }
-            #manager-drawer .drawer-section .section-weights .right .section-weight-input .input-currency > input {
-              padding-left: 8px;
-              width: 40px; }
   #manager-drawer #add-section {
     position: absolute;
     bottom: 2px;
