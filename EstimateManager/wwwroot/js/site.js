@@ -107,7 +107,17 @@ function HomeLoad() {
             },
             ToggleMgrDrawer: function (sectionId) {
                 var sectionMgrCnt = document.querySelector("[section-id='" + sectionId + "'] > .section-manager > .section-manager-content");
-                sectionMgrCnt.style.top = "0px";
+                var dropped = sectionMgrCnt.getAttribute("dropped");
+
+                if (dropped === "false") {
+                    sectionMgrCnt.style.top = "0px";
+                    sectionMgrCnt.querySelector('.mgr-arrow').innerHTML = "&#9650";
+                    sectionMgrCnt.setAttribute("dropped", "true");
+                } else {
+                    sectionMgrCnt.style.top = "-30px";
+                    sectionMgrCnt.querySelector('.mgr-arrow').innerHTML = "&#9660";
+                    sectionMgrCnt.setAttribute("dropped", "false");
+                }                
             }
         },
         mounted: function () {
@@ -119,7 +129,6 @@ function HomeLoad() {
         },
         updated: function () {
             //console.log('Updated fired');
-            SetDrawerPositions();
             hasUpdates = true;
         }
     });

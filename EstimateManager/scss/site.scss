@@ -343,7 +343,7 @@ input {
             grid-auto-rows: min-content max-content;
             background-color: #d9dada;
             padding-top: 5px;
-            transition: top 1s;
+            transition: top .5s;
 
             .pert-weight {
                 grid-column: 2;
@@ -395,6 +395,19 @@ input {
             color: $burntOrange;
             font-size: 24px;
             font-weight: bold;
+        }
+
+        div.new-section {
+            grid-column: 1;
+            color: $lightGrey;
+            opacity: .3;
+            text-align: left;
+            cursor: pointer;
+
+            span.add-section-icon{
+                color: green;
+                font-size: 35px;
+            }
         }
 
         div.total-text {

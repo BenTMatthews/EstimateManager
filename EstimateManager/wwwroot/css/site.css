@@ -218,7 +218,7 @@ header nav {
       grid-auto-rows: min-content max-content;
       background-color: #d9dada;
       padding-top: 5px;
-      transition: top 1s; }
+      transition: top .5s; }
       #estimate .section-manager .section-manager-content .pert-weight {
         grid-column: 2;
         justify-self: end; }
@@ -254,6 +254,15 @@ header nav {
       color: #b85b22;
       font-size: 24px;
       font-weight: bold; }
+    #estimate #total-row div.new-section {
+      grid-column: 1;
+      color: #f3f3f3;
+      opacity: .3;
+      text-align: left;
+      cursor: pointer; }
+      #estimate #total-row div.new-section span.add-section-icon {
+        color: green;
+        font-size: 35px; }
     #estimate #total-row div.total-text {
       grid-column: 7; }
     #estimate #total-row div.total-val {

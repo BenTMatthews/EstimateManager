@@ -59,8 +59,8 @@
         </template>
         <div v-on:click="AddLine(section.id)" class="add-line">+</div>
         <div class="section-manager">
-            <div class="section-manager-content">
-                <div class="pert-weight">Pert Weights:</div>
+            <div class="section-manager-content" dropped="false">
+                <div class="pert-weight">PERT Weights:</div>
                 <div><input v-model="section.sectionWeightOptimistic" placeholder="0" type="number" step="0.5" min="1" max="99" /></div>
                 <div>
                     <input v-model="section.sectionWeightLikely" placeholder="0" type="number" step="0.5" min="1" max="99" />
@@ -79,6 +79,7 @@
     </div>
 
     <div id="total-row">
+        <div class="new-section" onclick="AddSection();"><span class="add-section-icon">+</span> [New Section]</div>
         <div class="total-text">TOTAL</div>
         <div class="total-val">{{ EstimateTotal }}</div>
     </div>
@@ -113,7 +114,7 @@
             </div>
         </div>
     </div>
-    <button id="add-section" onclick="AddSection();">Add section</button>
+    <button id="add-section">Add section</button>
 </div>
 
 <div id="saving">Saving...</div>
