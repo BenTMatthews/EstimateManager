@@ -399,14 +399,16 @@ input {
 
         div.new-section {
             grid-column: 1;
-            color: $lightGrey;
-            opacity: .3;
+            color: $darkGrey;
+            opacity: .5;
             text-align: left;
             cursor: pointer;
 
-            span.add-section-icon{
+            span.add-section-icon {
                 color: green;
                 font-size: 35px;
+                position: relative;
+                top: 2px;
             }
         }
 
