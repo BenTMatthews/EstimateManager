@@ -270,67 +270,18 @@ header nav {
     #estimate #total-row div.total-val {
       grid-column: 8/9; }
 
-#manager-drawer {
-  width: 250px;
-  border-left: 3px outset #666666;
-  border-top: 3px outset #666666;
-  border-bottom: 3px outset #666666;
-  margin-right: 2%;
-  background-color: #f3f3f3;
-  text-align: left;
-  padding-top: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: 3px;
-  color: #0b5394;
-  position: relative;
-  display: none; }
-  #manager-drawer button#downloadpdf {
-    font-family: 'Roboto', sans-serif;
-    background: #b85b22;
-    color: white;
-    height: 30px; }
-  #manager-drawer #drawer-header {
-    margin-top: 17px;
-    font-size: 20px;
-    border-bottom: 3px solid #0b5394;
-    width: 100%; }
-  #manager-drawer .drawer-section {
-    position: absolute;
-    border-top: 1px solid #0b5394;
-    width: 205px; }
-    #manager-drawer .drawer-section .section-weights {
-      display: flex;
-      justify-content: center; }
-      #manager-drawer .drawer-section .section-weights .left {
-        text-align: right;
-        padding-right: 5px;
-        padding-top: 2px; }
-        #manager-drawer .drawer-section .section-weights .left > div {
-          margin-top: 4px;
-          height: 25px;
-          padding-right: 10px; }
-      #manager-drawer .drawer-section .section-weights .right {
-        text-align: left;
-        flex-grow: 1; }
-        #manager-drawer .drawer-section .section-weights .right .section-weight-input {
-          margin-top: 6px; }
-          #manager-drawer .drawer-section .section-weights .right .section-weight-input input {
-            width: 42px;
-            height: 20px;
-            color: #0b5394;
-            padding-left: 5px; }
-  #manager-drawer #add-section {
-    position: absolute;
-    bottom: 2px;
-    font-family: 'Roboto', sans-serif;
-    background: #0b5394;
-    color: white;
-    height: 24px; }
+button#downloadpdf {
+  font-family: 'Roboto', sans-serif;
+  background: #b85b22;
+  color: white;
+  height: 30px;
+  position: absolute;
+  top: 5px;
+  right: 5px; }
 
 #saving {
-  position: absolute;
-  top: 2px;
+  position: fixed;
+  bottom: 2px;
   right: 2px;
   background-color: beige;
   color: black;

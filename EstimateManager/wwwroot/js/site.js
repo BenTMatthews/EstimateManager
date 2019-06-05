@@ -315,12 +315,12 @@ function AdjustDomForPDF(forPdf) {
 function SaveToLocal() {
 
     if (hasUpdates) {
-        fadeIn('saving', 8);
+        document.getElementById("saving").style.opacity = ".8";
         localStorage.setItem('EstimateSheet', JSON.stringify(estimateSheet));
         hasUpdates = false;
     }
 
-    fadeOut('saving', 0);
+    document.getElementById("saving").style.opacity = "0";
     setTimeout(SaveToLocal, 10000);
 }
 
@@ -328,31 +328,3 @@ function SizeTextArea(textarea) {
     textarea.style.height = "";
     textarea.style.height = textarea.scrollHeight - 4 + 'px';
 }
-
-function fadeOut(id, val) {
-    if (isNaN(val)) {
-        val = 9;
-    }
-    document.getElementById(id).style.opacity = '0.' + val;
-    if (val > 0) {
-        val--;
-        setTimeout('fadeOut("' + id + '",' + val + ')', 90);
-    } else {
-        return;
-    }
-}
-
-function fadeIn(id, val) {
-    // ID of the element to fade, Fade value[min value is 0]
-    if (isNaN(val)) {
-        val = 0;
-    }
-    document.getElementById(id).style.opacity = '0.' + val;
-    if (val < 9) {
-        val++;
-        setTimeout('fadeIn("' + id + '",' + val + ')', 90);
-    } else {
-        return;
-    }
-}
-
