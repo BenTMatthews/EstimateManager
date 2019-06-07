@@ -329,8 +329,9 @@ header {
         position: absolute;
         top: 65px;
         left: 0px;
-        height: 40px;
+        height: 8px;
         overflow-y: hidden;
+        transition: height .5s;
 
         .section-manager-content {
             width: 100%;
@@ -429,7 +430,17 @@ button#downloadpdf {
     height: 30px;
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 2%;
+}
+
+button#resetestimate {
+    font-family: 'Roboto', sans-serif;
+    background: $darkBlue;
+    color: white;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    left: 2%;
 }
 
 #saving {

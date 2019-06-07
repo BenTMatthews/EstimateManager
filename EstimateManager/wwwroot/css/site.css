@@ -205,8 +205,9 @@ header nav {
     position: absolute;
     top: 65px;
     left: 0px;
-    height: 40px;
-    overflow-y: hidden; }
+    height: 8px;
+    overflow-y: hidden;
+    transition: height .5s; }
     #estimate .section-manager .section-manager-content {
       width: 100%;
       position: absolute;
@@ -277,7 +278,16 @@ button#downloadpdf {
   height: 30px;
   position: absolute;
   top: 5px;
-  right: 5px; }
+  right: 2%; }
+
+button#resetestimate {
+  font-family: 'Roboto', sans-serif;
+  background: #0b5394;
+  color: white;
+  height: 30px;
+  position: absolute;
+  top: 5px;
+  left: 2%; }
 
 #saving {
   position: fixed;

@@ -1,7 +1,7 @@
 ﻿var estimateVue;
 var hasUpdates = false;
 
-var lineTemplate =
+const lineTemplate =
 {
     id: "",
     task: "",
@@ -11,7 +11,7 @@ var lineTemplate =
     pessimistic: null
 };
 
-var sectionTemplate =
+const sectionTemplate =
 {
     id: "",
     name: "",
@@ -27,7 +27,8 @@ var sectionTemplate =
 
 };
 
-var estimateSheet = {
+const estimateTempate =
+{
     id: "",
     name: "",
     projectTitle: "",
@@ -40,12 +41,18 @@ var estimateSheet = {
         ]
 };
 
+
+var estimateSheet = JSON.parse(JSON.stringify(estimateTempate));
+
 function HomeLoad() {
 
     var savedSheet = localStorage.getItem("EstimateSheet");
 
     if (savedSheet !== null) {
         estimateSheet = JSON.parse(savedSheet);
+    }
+    else {
+        estimateSheet.id = Guid();
     }
 
     document.querySelector('body').addEventListener('keydown', function (event) {
@@ -106,14 +113,17 @@ function HomeLoad() {
                 return "$" + val.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
             },
             ToggleMgrDrawer: function (sectionId) {
-                var sectionMgrCnt = document.querySelector("[section-id='" + sectionId + "'] > .section-manager > .section-manager-content");
+                var sectionMgr = document.querySelector("[section-id='" + sectionId + "'] > .section-manager");
+                var sectionMgrCnt = sectionMgr.querySelector(".section-manager-content");
                 var dropped = sectionMgrCnt.getAttribute("dropped");
 
                 if (dropped === "false") {
+                    sectionMgr.style.height = "40px";
                     sectionMgrCnt.style.top = "0px";
                     sectionMgrCnt.querySelector('.mgr-arrow').innerHTML = "&#9650";
                     sectionMgrCnt.setAttribute("dropped", "true");
                 } else {
+                    sectionMgr.style.height = "8px";
                     sectionMgrCnt.style.top = "-30px";
                     sectionMgrCnt.querySelector('.mgr-arrow').innerHTML = "&#9660";
                     sectionMgrCnt.setAttribute("dropped", "false");
@@ -223,92 +233,128 @@ function GetToday() {
 
 function SaveAndDownload() {
 
-    //these values are pretty arbitrary to get around the pdf generation limitations
-    var width = 1600;
-    var height = document.body.scrollHeight;
+    //Retiring the use of JSPdf, letting the normal system print function take over
 
     //var pdf = new jsPDF('landscape', 'px', [width, height]);
     //document.getElementsByTagName('body')[0].style.width = "1400px";
-
-
-    var pdf = new jsPDF('p', 'pt', [1400, height / 1.3]);
+    //var pdf = new jsPDF('l', 'pt', [1400, height / 1.3]);    
+    //var pdf = new jsPDF('p', 'pt', "a4");
 
     AdjustDomForPDF(true);
 
-    pdf.html(document.body, {
-        callback: function (pdf) {
-            pdf.save('Estimate.pdf');
-            AdjustDomForPDF(false);
-        }
-    });
+    //pdf.html(document.body, {
+    //    callback: function (pdf) {
+    //        pdf.save('Estimate.pdf');
+    //        AdjustDomForPDF(false);
+    //    }
+    //});
+
+    window.print();
+
+    AdjustDomForPDF(false);
+}
+
+function ResetEstimate() {
+    if (confirm("Are you sure you want to reset the estimate, including all sections and fields?")) {
+        estimateSheet.sections = [];
+        estimateSheet.id = Guid();
+        estimateSheet.name = "";
+        estimateSheet.projectTitle = "";
+        estimateSheet.projectOwner = "";
+        estimateSheet.companyName = "";
+        estimateSheet.date = GetToday();
+        AddSection();
+
+        SaveToLocal();
+    }
 }
 
 function AdjustDomForPDF(forPdf) {
     if (forPdf) {
 
+        //at 1400px things seem to look cleaner
         document.getElementsByTagName('body')[0].style.width = "1400px";
         document.getElementsByTagName('header')[0].style.display = "none";
 
-        var divsToSpace = document.getElementsByTagName('div');
-        for (var i = 0; i < divsToSpace.length; i++) {
-            divsToSpace[i].style.wordSpacing = '5px';
-        }
+        //var divsToSpace = document.getElementsByTagName('div');
+        //for (var i = 0; i < divsToSpace.length; i++) {
+        //    divsToSpace[i].style.wordSpacing = '5px';
+        //}
 
-        addLinesToHide = document.querySelectorAll(".add-line");
+        var addLinesToHide = document.querySelectorAll(".add-line");
         for (i = 0; i < addLinesToHide.length; i++) {
             addLinesToHide[i].style.display = 'none';
         }
 
-        removeLinesToHide = document.querySelectorAll(".remove-line");
+        var removeLinesToHide = document.querySelectorAll(".remove-line");
         for (i = 0; i < removeLinesToHide.length; i++) {
             removeLinesToHide[i].style.display = 'none';
+        }       
+
+        var sectionsToFormat = document.querySelectorAll("#estimate .section");
+        for (i = 0; i < sectionsToFormat.length; i++) {
+            sectionsToFormat[i].style.gridTemplateColumns = '15% 26% 8% 8% 8% 8% 11% auto';
         }
 
-        removeSectionsToHide = document.querySelectorAll(".remove-section");
+        var removeSectionsToHide = document.querySelectorAll("#estimate .section .remove-section");
         for (i = 0; i < removeSectionsToHide.length; i++) {
             removeSectionsToHide[i].style.display = 'none';
         }
 
-        sectionToFormat = document.querySelectorAll("#estimate .section");
-        for (i = 0; i < sectionToFormat.length; i++) {
-            sectionToFormat[i].style.gridTemplateColumns = '15% 26% 8% 8% 8% 8% 11% auto';
+        var managersToHide = document.querySelectorAll(".section-manager");
+        for (i = 0; i < managersToHide.length; i++) {
+            managersToHide[i].style.display = 'none';
         }
 
+        document.querySelector(".new-section").style.display = "none";
         document.getElementById('saving').style.display = 'none';
-        //document.getElementById('manager-drawer').style.display = "none";
+        document.getElementById('downloadpdf').style.display = 'none';
+        document.getElementById('resetestimate').style.display = 'none';
     }
     else {
 
         document.getElementsByTagName('body')[0].style.width = "100%";
         document.getElementsByTagName('header')[0].style.display = "block";
 
-        var divsToUnspace = document.getElementsByTagName('div');
-        for (var j = 0; j < divsToUnspace.length; j++) {
-            divsToUnspace[j].style.wordSpacing = '0px';
-        }
+        //var divsToUnspace = document.getElementsByTagName('div');
+        //for (var j = 0; j < divsToUnspace.length; j++) {
+        //    divsToUnspace[j].style.wordSpacing = '0px';
+        //}
 
-        addLinesToShow = document.querySelectorAll(".add-line");
+        var addLinesToShow = document.querySelectorAll(".add-line");
         for (j = 0; j < addLinesToShow.length; j++) {
             addLinesToShow[j].style.display = 'block';
         }
 
-        removeLinesToShow = document.querySelectorAll(".remove-line");
+        var removeLinesToShow = document.querySelectorAll(".remove-line");
         for (j = 0; j < removeLinesToShow.length; j++) {
             removeLinesToShow[j].style.display = 'block';
         }
 
-        removeSectionsToShow = document.querySelectorAll(".remove-section");
+        var removeSectionsToShow = document.querySelectorAll(".remove-section");
         for (j = 0; j < removeSectionsToShow.length; j++) {
             removeSectionsToShow[j].style.display = 'block';
         }
 
-        sectionToRestore = document.querySelectorAll("#estimate .section");
-        for (j = 0; j < sectionToRestore.length; j++) {
-            sectionToRestore[j].style.gridTemplateColumns = '15% 26% 8% 8% 8% 8% 11% auto 20px';
+        var sectionsToRestore = document.querySelectorAll("#estimate .section");
+        for (j = 0; j < sectionsToRestore.length; j++) {
+            sectionsToRestore[j].style.gridTemplateColumns = '15% 26% 8% 8% 8% 8% 11% auto 20px';
         }
 
+        var removeSectionsToRestore = document.querySelectorAll("#estimate .section .remove-section");
+        for (i = 0; i < removeSectionsToRestore.length; i++) {
+            removeSectionsToRestore[i].style.display = 'block';
+        }
+
+        var managersToShow = document.querySelectorAll(".section-manager");
+        for (i = 0; i < managersToShow.length; i++) {
+            managersToShow[i].style.display = 'block';
+        }
+
+        document.querySelector(".new-section").style.display = "block";
         document.getElementById('saving').style.display = 'block';
-        //document.getElementById('manager-drawer').style.display = "block";
+        document.getElementById('downloadpdf').style.display = 'block';
+        document.getElementById('resetestimate').style.display = 'block';
     }
 }
 
