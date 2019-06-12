@@ -46,13 +46,18 @@ var estimateSheet = JSON.parse(JSON.stringify(estimateTempate));
 
 function HomeLoad() {
 
-    var savedSheet = localStorage.getItem("EstimateSheet");
+    if (estimatePreLoad === null) {
+        var savedSheet = localStorage.getItem("EstimateSheet");
 
-    if (savedSheet !== null) {
-        estimateSheet = JSON.parse(savedSheet);
+        if (savedSheet !== null) {
+            estimateSheet = JSON.parse(savedSheet);
+        }
+        else {
+            estimateSheet.id = Guid();
+        }
     }
     else {
-        estimateSheet.id = Guid();
+        estimateSheet = JSON.parse(estimatePreLoad);
     }
 
     document.querySelector('body').addEventListener('keydown', function (event) {
@@ -134,8 +139,15 @@ function HomeLoad() {
             //console.log('mounted fired');
             if (estimateSheet.sections.length === 0) {
                 AddSection();
-            }
-            document.querySelector('.container').style.display = "flex";
+            }            
+
+            //This is ugly, but for some reason the dom was not ready for resize
+            //when trying this without waiting a little bit.
+            setTimeout(function () {
+                document.querySelector('.container').style.display = "flex";
+                document.querySelectorAll('textarea').forEach(e => { SizeTextArea(e); });  
+            }, 10);
+                     
         },
         updated: function () {
             //console.log('Updated fired');
@@ -143,9 +155,9 @@ function HomeLoad() {
         }
     });
 
-    SaveToLocal();
-
-    document.querySelectorAll('textarea').forEach(e => { SizeTextArea(e); });
+    if (saveToLocalRun) {
+        SaveToLocal();
+    }
 }
 
 function AddSection() {
@@ -366,7 +378,10 @@ function SaveToLocal() {
         hasUpdates = false;
     }
 
-    document.getElementById("saving").style.opacity = "0";
+    setTimeout(function () {
+        document.getElementById("saving").style.opacity = "0";
+    }, 1000);
+    
     setTimeout(SaveToLocal, 10000);
 }
 
