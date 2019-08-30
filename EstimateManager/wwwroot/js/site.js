@@ -244,41 +244,24 @@ function GetToday() {
 }
 
 function SaveAndDownload() {
-
-    //Retiring the use of JSPdf, letting the normal system print function take over
-
     //var pdf = new jsPDF('landscape', 'px', [width, height]);
     //document.getElementsByTagName('body')[0].style.width = "1400px";
-    //var pdf = new jsPDF('l', 'pt', [1400, height / 1.3]);    
+    var height = document.body.scrollHeight;
+    var pdf = new jsPDF('l', 'pt', [height, 1400]);    
     //var pdf = new jsPDF('p', 'pt', "a4");
 
     AdjustDomForPDF(true);
 
-    //pdf.html(document.body, {
-    //    callback: function (pdf) {
-    //        pdf.save('Estimate.pdf');
-    //        AdjustDomForPDF(false);
-    //    }
-    //});
+    pdf.html(document.getElementById('estimate'), {
+        callback: function (pdf) {
+            pdf.save('Estimate.pdf');
+            AdjustDomForPDF(false);
+        }
+    });
 
-    window.print();
+    //window.print();
 
-    AdjustDomForPDF(false);
-}
-
-function ResetEstimate() {
-    if (confirm("Are you sure you want to reset the estimate, including all sections and fields?")) {
-        estimateSheet.sections = [];
-        estimateSheet.id = Guid();
-        estimateSheet.name = "";
-        estimateSheet.projectTitle = "";
-        estimateSheet.projectOwner = "";
-        estimateSheet.companyName = "";
-        estimateSheet.date = GetToday();
-        AddSection();
-
-        SaveToLocal();
-    }
+    //AdjustDomForPDF(false);
 }
 
 function AdjustDomForPDF(forPdf) {
@@ -288,10 +271,10 @@ function AdjustDomForPDF(forPdf) {
         document.getElementsByTagName('body')[0].style.width = "1400px";
         document.getElementsByTagName('header')[0].style.display = "none";
 
-        //var divsToSpace = document.getElementsByTagName('div');
-        //for (var i = 0; i < divsToSpace.length; i++) {
-        //    divsToSpace[i].style.wordSpacing = '5px';
-        //}
+        var divsToSpace = document.getElementsByTagName('div');
+        for (var i = 0; i < divsToSpace.length; i++) {
+            divsToSpace[i].style.wordSpacing = '5px';
+        }
 
         var addLinesToHide = document.querySelectorAll(".add-line");
         for (i = 0; i < addLinesToHide.length; i++) {
@@ -328,10 +311,10 @@ function AdjustDomForPDF(forPdf) {
         document.getElementsByTagName('body')[0].style.width = "100%";
         document.getElementsByTagName('header')[0].style.display = "block";
 
-        //var divsToUnspace = document.getElementsByTagName('div');
-        //for (var j = 0; j < divsToUnspace.length; j++) {
-        //    divsToUnspace[j].style.wordSpacing = '0px';
-        //}
+        var divsToUnspace = document.getElementsByTagName('div');
+        for (var j = 0; j < divsToUnspace.length; j++) {
+            divsToUnspace[j].style.wordSpacing = '0px';
+        }
 
         var addLinesToShow = document.querySelectorAll(".add-line");
         for (j = 0; j < addLinesToShow.length; j++) {
@@ -367,6 +350,21 @@ function AdjustDomForPDF(forPdf) {
         document.getElementById('saving').style.display = 'block';
         document.getElementById('downloadpdf').style.display = 'block';
         document.getElementById('resetestimate').style.display = 'block';
+    }
+}
+
+function ResetEstimate() {
+    if (confirm("Are you sure you want to reset the estimate, including all sections and fields?")) {
+        estimateSheet.sections = [];
+        estimateSheet.id = Guid();
+        estimateSheet.name = "";
+        estimateSheet.projectTitle = "";
+        estimateSheet.projectOwner = "";
+        estimateSheet.companyName = "";
+        estimateSheet.date = GetToday();
+        AddSection();
+
+        SaveToLocal();
     }
 }
 

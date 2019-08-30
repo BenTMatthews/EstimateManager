@@ -96,6 +96,15 @@ header nav {
       grid-area: costs;
       background-color: #b85b22;
       color: white; }
+    #estimate #estimate-grid-headers .second-row {
+      background-color: #f3f3f3;
+      font-size: 13px; }
+    #estimate #estimate-grid-headers .second-row-task {
+      color: #0b5394; }
+    #estimate #estimate-grid-headers .second-row-calc {
+      color: #b85b22; }
+    #estimate #estimate-grid-headers .second-row-padding {
+      padding-right: 0px; }
     #estimate #estimate-grid-headers .task {
       grid-area: task; }
     #estimate #estimate-grid-headers .description {
@@ -109,18 +118,11 @@ header nav {
     #estimate #estimate-grid-headers .calculated {
       grid-area: calculated; }
     #estimate #estimate-grid-headers .estimated {
-      grid-area: estimated; }
+      grid-area: estimated;
+      color: #666666; }
     #estimate #estimate-grid-headers .cost {
-      grid-area: cost; }
-    #estimate #estimate-grid-headers .second-row {
-      background-color: #f3f3f3;
-      font-size: 13px; }
-    #estimate #estimate-grid-headers .second-row-task {
-      color: #0b5394; }
-    #estimate #estimate-grid-headers .second-row-calc {
-      color: #b85b22; }
-    #estimate #estimate-grid-headers .second-row-padding {
-      padding-right: 0px; }
+      grid-area: cost;
+      color: #666666; }
   #estimate .section {
     display: grid;
     grid-gap: 0px;

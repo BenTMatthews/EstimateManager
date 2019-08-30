@@ -150,6 +150,23 @@ header {
             color: white;
         }
 
+        .second-row {
+            background-color: $lightGrey;
+            font-size: 13px;
+        }
+
+        .second-row-task {
+            color: $darkBlue;
+        }
+
+        .second-row-calc {
+            color: $burntOrange;
+        }
+
+        .second-row-padding {
+            padding-right: 0px;
+        }
+
         .task {
             grid-area: task;
         }
@@ -176,27 +193,12 @@ header {
 
         .estimated {
             grid-area: estimated;
+            color: $darkGrey;
         }
 
         .cost {
             grid-area: cost;
-        }
-
-        .second-row {
-            background-color: $lightGrey;
-            font-size: 13px;
-        }
-
-        .second-row-task {
-            color: $darkBlue;
-        }
-
-        .second-row-calc {
-            color: $burntOrange;
-        }
-
-        .second-row-padding {
-            padding-right: 0px;
+            color: $darkGrey;
         }
     }
 
