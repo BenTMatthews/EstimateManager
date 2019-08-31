@@ -436,6 +436,16 @@ button#downloadpdf {
     right: 2%;
 }
 
+button#printestimate {
+    font-family: 'Roboto', sans-serif;
+    background: $burntOrange;
+    color: white;
+    height: 30px;
+    position: absolute;
+    top: 40px;
+    right: 2%;
+}
+
 button#resetestimate {
     font-family: 'Roboto', sans-serif;
     background: $darkBlue;

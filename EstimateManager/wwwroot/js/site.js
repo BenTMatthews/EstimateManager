@@ -244,15 +244,15 @@ function GetToday() {
 }
 
 function SaveAndDownload() {
-    //var pdf = new jsPDF('landscape', 'px', [width, height]);
-    //document.getElementsByTagName('body')[0].style.width = "1400px";
-    var height = document.body.scrollHeight;
-    var pdf = new jsPDF('l', 'pt', [height, 1400]);    
-    //var pdf = new jsPDF('p', 'pt', "a4");
 
     AdjustDomForPDF(true);
 
-    pdf.html(document.getElementById('estimate'), {
+    var docHeight = document.getElementById('main-body').scrollHeight;
+    var docWidth = document.getElementById('main-body').scrollWidth;
+    var pdf = new jsPDF('l', 'pt', [docHeight, docWidth]);    
+
+
+    pdf.html(document.getElementById('main-body'), {
         callback: function (pdf) {
             pdf.save('Estimate.pdf');
             AdjustDomForPDF(false);
@@ -262,6 +262,12 @@ function SaveAndDownload() {
     //window.print();
 
     //AdjustDomForPDF(false);
+}
+
+function PrintEstimate() {
+    AdjustDomForPDF(true);
+    window.print();
+    AdjustDomForPDF(false);
 }
 
 function AdjustDomForPDF(forPdf) {
@@ -351,6 +357,8 @@ function AdjustDomForPDF(forPdf) {
         document.getElementById('downloadpdf').style.display = 'block';
         document.getElementById('resetestimate').style.display = 'block';
     }
+
+    document.querySelectorAll('textarea').forEach(e => { SizeTextArea(e); });  
 }
 
 function ResetEstimate() {

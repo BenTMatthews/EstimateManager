@@ -283,6 +283,15 @@ button#downloadpdf {
   top: 5px;
   right: 2%; }
 
+button#printestimate {
+  font-family: 'Roboto', sans-serif;
+  background: #b85b22;
+  color: white;
+  height: 30px;
+  position: absolute;
+  top: 40px;
+  right: 2%; }
+
 button#resetestimate {
   font-family: 'Roboto', sans-serif;
   background: #0b5394;
