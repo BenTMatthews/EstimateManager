@@ -57,7 +57,7 @@ function HomeLoad() {
         }
     }
     else {
-        estimateSheet = JSON.parse(estimatePreLoad);
+        estimateSheet = estimatePreLoad;
     }
 
     document.querySelector('body').addEventListener('keydown', function (event) {

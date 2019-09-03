@@ -2,7 +2,13 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+<div id="right-controls">
+    <button id="downloadpdf" onclick="SaveAndDownload();">PDF</button>
+    <button id="printestimate" onclick="PrintEstimate();">Print</button>
+</div>
+<div id="left-controls">
+    <button id="resetestimate" onclick="ResetEstimate();">Reset</button>
+</div>
 
 <div id="estimate">
     <div id="estimate-name"><input v-model="name" placeholder="[Estimate Name]" /></div>
@@ -84,16 +90,13 @@
     </div>
 </div>
 
-<button id="downloadpdf" onclick="SaveAndDownload();">Download</button>
-<button id="printestimate" onclick="PrintEstimate();">Print</button>
-<button id="resetestimate" onclick="ResetEstimate();">Reset</button>
 <div id="saving">Saving...</div>
 
 @section Scripts
 {
     <script>
-    var saveToLocalRun = true;
-    var estimatePreLoad = null;
-    HomeLoad();
+        var saveToLocalRun = true;
+        var estimatePreLoad = null;
+        HomeLoad();
     </script>
 }
