@@ -5,4 +5,8 @@ This started from using PERT estimates for freelance work, and realized others c
 
 
 ### TODO:
-PDF and PRINT generation still sucks. Can't see to find a format that is consistent, but everything but edge cases seems to work right now.
+- PDF generation still sucks. Can't see to find a format that is consistent, but everything but edge cases seems to work right now.
+- Templates and styling
+- Logo support
+- Custom HTML header and footer for branding
+- User profiles and manage multiple estimates
